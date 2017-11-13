@@ -60,6 +60,7 @@ type Msg =
   | RemoveTodo String
   | AddTodo
   | RemoveAll
+  | ClearInput
 
 update : Msg -> Model -> Model
 update msg model =
@@ -68,10 +69,13 @@ update msg model =
       { model | todo = text }
 
     AddTodo ->
-      { model | todos = model.todo :: model.todos }
-    
+      { model | todos = model.todo :: model.todos, todo = ""  }
+  
     RemoveAll ->
       { model | todos = [] }
 
     RemoveTodo text ->
       { model | todos = List.filter(\y -> y /= text) model.todos }
+    
+    ClearInput ->
+      { model | todo = "" }
